@@ -51,7 +51,7 @@ Login
   Дочекатися І Клікнути  xpath=//a[@href="${host}/tenders"]
   Дочекатися І Клікнути  xpath=//a[@href="${host}/tenders/index"]
   Дочекатися І Клікнути  xpath=//a[contains(@href,"/buyer/tender/create")]
-  Execute Javascript  $('.navbar-fixed-top').removeClass('navbar-inverse'); $('.test-mode').removeClass('test-mode')
+  Wait Until Keyword Succeeds  10 x  0.5 s  Execute Javascript  $('.navbar-fixed-top').removeClass('navbar-inverse'); $('.test-mode').removeClass('test-mode')
   Run Keyword If  "below" in "${tender_data.data.procurementMethodType}"  Заповнити поля для допорогової закупівлі  ${tender_data}
   ...  ELSE IF  "aboveThreshold" in "${tender_data.data.procurementMethodType}"  Заповнити поля для понадпорогів  ${tender_data}
   ...  ELSE IF  "${tender_data.data.procurementMethodType}" == "negotiation"  Заповнити поля для переговорної процедури  ${tender_data}
@@ -269,7 +269,7 @@ Login
   [Arguments]  ${username}  ${tenderID}  ${field_name}  ${field_value}
   tenderonline.Пошук тендера по ідентифікатору  ${username}  ${tenderID}
   Дочекатися І Клікнути  xpath=//a[contains(text(),'Редагувати')]
-  Execute Javascript  $('.navbar-fixed-top').removeClass('navbar-inverse'); $('.test-mode').removeClass('test-mode')
+  Wait Until Keyword Succeeds  10 x  0.5 s  Execute Javascript  $('.navbar-fixed-top').removeClass('navbar-inverse'); $('.test-mode').removeClass('test-mode')
   Run Keyword If  "Date" in "${field_name}"  Input Date  name=Tender[${field_name.replace(".", "][")}]  ${field_value}
   ...  ELSE  Input text  name=Tender[${field_name}]  ${field_value}
   Дочекатися І Клікнути  xpath=//button[contains(@class,'btn_submit_form')]
@@ -279,7 +279,7 @@ Login
   [Arguments]  ${username}  ${tender_uaid}  ${lot_id}  ${fieldname}  ${fieldvalue}
   tenderonline.Пошук тендера по ідентифікатору  ${username}  ${tender_uaid}
   Дочекатися І Клікнути  xpath=//a[contains(text(),'Редагувати')]
-  Execute Javascript  $('.navbar-fixed-top').removeClass('navbar-inverse'); $('.test-mode').removeClass('test-mode')
+  Wait Until Keyword Succeeds  10 x  0.5 s  Execute Javascript  $('.navbar-fixed-top').removeClass('navbar-inverse'); $('.test-mode').removeClass('test-mode')
   Input Text  xpath=(//input[contains(@value,"${lot_id}")]/ancestor::div[@class="lots_marker"]/descendant::*[contains(@name,"${fieldname.replace(".", "][")}")])[1]  ${fieldvalue}
   Дочекатися І Клікнути  xpath=//button[contains(@class,'btn_submit_form')]
   Wait Until Page Contains Element  xpath=//div[contains(@class, "alert-success")]
@@ -288,7 +288,7 @@ Login
   [Arguments]  ${username}  ${filepath}  ${tender_uaid}  ${lot_id}
   tenderonline.Пошук тендера по ідентифікатору  ${username}  ${tender_uaid}
   Дочекатися І Клікнути  xpath=//a[contains(text(),'Редагувати')]
-  Execute Javascript  $('.navbar-fixed-top').removeClass('navbar-inverse'); $('.test-mode').removeClass('test-mode')
+  Wait Until Keyword Succeeds  10 x  0.5 s  Execute Javascript  $('.navbar-fixed-top').removeClass('navbar-inverse'); $('.test-mode').removeClass('test-mode')
   Wait Until Page Contains Element  xpath=//div[@class="lots_marker"]/descendant::input[@name="FileUpload[file]"]
   Choose File  xpath=//div[@class="lots_marker"]/descendant::input[@name="FileUpload[file]"]  ${filepath}
   Capture Page Screenshot
@@ -307,7 +307,7 @@ Login
   [Arguments]  ${username}  ${tender_uaid}  ${lot}  ${item}
   tenderonline.Пошук тендера по ідентифікатору  ${username}  ${tender_uaid}
   Дочекатися І Клікнути  xpath=//a[contains(text(),'Редагувати')]
-  Execute Javascript  $('.navbar-fixed-top').removeClass('navbar-inverse'); $('.test-mode').removeClass('test-mode')
+  Wait Until Keyword Succeeds  10 x  0.5 s  Execute Javascript  $('.navbar-fixed-top').removeClass('navbar-inverse'); $('.test-mode').removeClass('test-mode')
   Дочекатися І Клікнути  xpath=//button[contains(@class, "add_lot")]
   tenderonline.Створити лот  ${username}  ${tender_uaid}  ${lot}  ${item}
   Дочекатися І Клікнути  xpath=//button[contains(@class,'btn_submit_form')]
@@ -317,7 +317,7 @@ Login
   [Arguments]  ${username}  ${tender_uaid}  ${lot_id}  ${item}
   tenderonline.Пошук тендера по ідентифікатору  ${username}  ${tender_uaid}
   Дочекатися І Клікнути  xpath=//a[contains(text(),'Редагувати')]
-  Execute Javascript  $('.navbar-fixed-top').removeClass('navbar-inverse'); $('.test-mode').removeClass('test-mode')
+  Wait Until Keyword Succeeds  10 x  0.5 s  Execute Javascript  $('.navbar-fixed-top').removeClass('navbar-inverse'); $('.test-mode').removeClass('test-mode')
   Дочекатися І Клікнути  xpath=//*[contains(@value, "${lot_id}")]/ancestor::div[@class="lot"]/descendant::button[contains(@class,"add_item")]
   tenderonline.Додати предмет  ${item}
   Дочекатися І Клікнути  xpath=//button[contains(@class,'btn_submit_form')]
@@ -328,7 +328,7 @@ Login
   tenderonline.Пошук тендера по ідентифікатору  ${username}  ${tender_uaid}
   Дочекатися І Клікнути  xpath=//a[contains(text(),'Редагувати')]
   Sleep  3
-  Execute Javascript  $('.navbar-fixed-top').removeClass('navbar-inverse'); $('.test-mode').removeClass('test-mode')
+  Wait Until Keyword Succeeds  10 x  0.5 s  Execute Javascript  $('.navbar-fixed-top').removeClass('navbar-inverse'); $('.test-mode').removeClass('test-mode')
   Дочекатися І Клікнути   xpath=(//div[@class="features_wrapper"]/descendant::button[contains(text(), "Додати показник")])[last()]
   Додати показник   ${feature}  ${EMPTY}
   Дочекатися І Клікнути  xpath=//button[contains(@class,'btn_submit_form')]
@@ -339,7 +339,7 @@ Login
   tenderonline.Пошук тендера по ідентифікатору  ${username}  ${tender_uaid}
   Дочекатися І Клікнути  xpath=//a[contains(text(),'Редагувати')]
   Sleep  3
-  Execute Javascript  $('.navbar-fixed-top').removeClass('navbar-inverse'); $('.test-mode').removeClass('test-mode')
+  Wait Until Keyword Succeeds  10 x  0.5 s  Execute Javascript  $('.navbar-fixed-top').removeClass('navbar-inverse'); $('.test-mode').removeClass('test-mode')
   Дочекатися І Клікнути   xpath=(//input[contains(@value,"${lot_id}")]/ancestor::div[@class="lot"]/descendant::button[contains(text(), "Додати показник")])[last()]
   Додати показник   ${feature}  ${EMPTY}
   Дочекатися І Клікнути  xpath=//button[contains(@class,'btn_submit_form')]
@@ -350,7 +350,7 @@ Login
   tenderonline.Пошук тендера по ідентифікатору  ${username}  ${tender_uaid}
   Дочекатися І Клікнути  xpath=//a[contains(text(),'Редагувати')]
   Sleep  3
-  Execute Javascript  $('.navbar-fixed-top').removeClass('navbar-inverse'); $('.test-mode').removeClass('test-mode')
+  Wait Until Keyword Succeeds  10 x  0.5 s  Execute Javascript  $('.navbar-fixed-top').removeClass('navbar-inverse'); $('.test-mode').removeClass('test-mode')
   Дочекатися І Клікнути   xpath=(//textarea[contains(text(),"${item_id}")]/ancestor::div[@class="lot"]/descendant::button[contains(text(), "Додати показник")])[last()]
   Додати показник   ${feature}  ${EMPTY}  ${item_id}
   Дочекатися І Клікнути  xpath=//button[contains(@class,'btn_submit_form')]
@@ -360,7 +360,7 @@ Login
   [Arguments]  ${username}  ${tender_uaid}  ${supplier_data}  ${document}
   tenderonline.Пошук тендера по ідентифікатору  ${username}  ${tender_uaid}
   Дочекатися І Клікнути  xpath=//a[text()="Пропозиції"]
-  Execute Javascript  $('.navbar-fixed-top').removeClass('navbar-inverse'); $('.test-mode').removeClass('test-mode')
+  Wait Until Keyword Succeeds  10 x  0.5 s  Execute Javascript  $('.navbar-fixed-top').removeClass('navbar-inverse'); $('.test-mode').removeClass('test-mode')
   Wait And Select From List By Label  name=Award[suppliers][0][address][countryName]  ${supplier_data.data.suppliers[0].address.countryName}
   Wait And Select From List By Label  name=Award[suppliers][0][identifier][scheme]  Схема ${supplier_data.data.suppliers[0].identifier.scheme}
   Input Text  name=Award[suppliers][0][identifier][id]  ${supplier_data.data.suppliers[0].identifier.id}
@@ -394,7 +394,7 @@ Login
   [Arguments]  ${username}  ${tender_uaid}  ${item_id}  ${lot_id}=${Empty}
   tenderonline.Пошук тендера по ідентифікатору  ${username}  ${tender_uaid}
   Дочекатися І Клікнути  xpath=//a[contains(text(),'Редагувати')]
-  Execute Javascript  $('.navbar-fixed-top').removeClass('navbar-inverse'); $('.test-mode').removeClass('test-mode')
+  Wait Until Keyword Succeeds  10 x  0.5 s  Execute Javascript  $('.navbar-fixed-top').removeClass('navbar-inverse'); $('.test-mode').removeClass('test-mode')
   Дочекатися І Клікнути  xpath=//textarea[contains(text(), "${item_id}")]/ancestor::div[@class="item"]/descendant::button[contains(@class, "delete_item")]
   Confirm Action
   Дочекатися І Клікнути  xpath=//button[contains(@class,'btn_submit_form')]
@@ -406,7 +406,7 @@ Login
   tenderonline.Пошук тендера по ідентифікатору  ${username}  ${tender_uaid}
   Дочекатися І Клікнути  xpath=//a[contains(text(),'Редагувати')]
   Sleep  3
-  Execute Javascript  $('.navbar-fixed-top').removeClass('navbar-inverse'); $('.test-mode').removeClass('test-mode')
+  Wait Until Keyword Succeeds  10 x  0.5 s  Execute Javascript  $('.navbar-fixed-top').removeClass('navbar-inverse'); $('.test-mode').removeClass('test-mode')
   Дочекатися І Клікнути  xpath=//*[contains(@value, "${lot_id}")]/ancestor::div[@class="lot"]/descendant::button[contains(@class,"delete_lot")]
   Confirm Action
   Дочекатися І Клікнути  xpath=//button[contains(@class,'btn_submit_form')]
@@ -427,7 +427,7 @@ Login
   tenderonline.Пошук тендера по ідентифікатору  ${username}  ${tender_uaid}
   Дочекатися І Клікнути  xpath=//a[contains(text(),'Редагувати')]
   Sleep  3
-  Execute Javascript  $('.navbar-fixed-top').removeClass('navbar-inverse'); $('.test-mode').removeClass('test-mode')
+  Wait Until Keyword Succeeds  10 x  0.5 s  Execute Javascript  $('.navbar-fixed-top').removeClass('navbar-inverse'); $('.test-mode').removeClass('test-mode')
   Дочекатися І Клікнути  xpath=//*[contains(@value, "${feature_id}")]/ancestor::div[@class="feature grey"]/descendant::button[contains(@class,"delete_feature")]
   Confirm Action
   Дочекатися І Клікнути  xpath=//button[contains(@class,'btn_submit_form')]
@@ -505,7 +505,7 @@ Login
   [Arguments]  ${username}  ${tender_uaid}  ${complaintID}  ${confirmation_data}
   tenderonline.Пошук тендера по ідентифікатору  ${username}  ${tender_uaid}
   Дочекатися І Клікнути  xpath=//div[@class="nav_block"]/descendant::a[contains(@href, "/complaints")]
-  Execute Javascript  $('.navbar-fixed-top').removeClass('navbar-inverse'); $('.test-mode').removeClass('test-mode')
+  Wait Until Keyword Succeeds  10 x  0.5 s  Execute Javascript  $('.navbar-fixed-top').removeClass('navbar-inverse'); $('.test-mode').removeClass('test-mode')
   Capture Page Screenshot
   Дочекатися І Клікнути  xpath=//button[@name="complaint_resolved"]
   Capture Page Screenshot
@@ -531,7 +531,7 @@ Login
   Wait Until Keyword Succeeds  10 x  60 s  Run Keywords
   ...  Reload Page
   ...  AND  Page Should Contain  ${complaintID}
-  Execute Javascript  $('.navbar-fixed-top').removeClass('navbar-inverse'); $('.test-mode').removeClass('test-mode')
+  Wait Until Keyword Succeeds  10 x  0.5 s  Execute Javascript  $('.navbar-fixed-top').removeClass('navbar-inverse'); $('.test-mode').removeClass('test-mode')
   Run Keyword If  "переможця" in "${TEST_NAME}"  Input Text  xpath=//*[contains(text(),"${complaintID}")]/../descendant::textarea[contains(@name,"tendererAction")]  ${answer_data.data.resolution}
   ...  ELSE  Input Text  xpath=//*[contains(text(),"${complaintID}")]/../descendant::textarea[contains(@name,"[resolution]")]  ${answer_data.data.resolution}
   Дочекатися І Клікнути  xpath=//*[contains(text(),"${complaintID}")]/../descendant::input[@value="${answer_data.data.resolutionType}"]/..
@@ -555,7 +555,7 @@ Login
   [Arguments]  ${username}  ${tender_uaid}  ${complaintID}  ${cancellation_data}
   tenderonline.Пошук тендера по ідентифікатору  ${username}  ${tender_uaid}
   Дочекатися І Клікнути  xpath=//div[@class="nav_block"]/descendant::a[contains(@href, "/complaints")]
-  Execute Javascript  $('.navbar-fixed-top').removeClass('navbar-inverse'); $('.test-mode').removeClass('test-mode')
+  Wait Until Keyword Succeeds  10 x  0.5 s  Execute Javascript  $('.navbar-fixed-top').removeClass('navbar-inverse'); $('.test-mode').removeClass('test-mode')
   Дочекатися І Клікнути  xpath=//input[@class="cancel_checkbox"]/..
   Ввести Текст  xpath=//*[contains(@name, "[cancellationReason]")]  ${cancellation_data.data.cancellationReason}
   Дочекатися І Клікнути  xpath=//button[@name="complaint_cancelled"]
@@ -578,7 +578,7 @@ Login
   ...    AND  Дочекатися І Клікнути  xpath=//*[@class="bidclaims"]/descendant::a[contains(@href,"tender/qualification-complaints")]
   ...  ELSE  Дочекатися І Клікнути  xpath=//div[@class="nav_block"]/descendant::a[contains(@href,"tender/complaints")]
   Wait Until Page Does Not Contain  Специфікація закупівлі
-  Execute Javascript  $('.navbar-fixed-top').removeClass('navbar-inverse'); $('.test-mode').removeClass('test-mode')
+  Wait Until Keyword Succeeds  10 x  0.5 s  Execute Javascript  $('.navbar-fixed-top').removeClass('navbar-inverse'); $('.test-mode').removeClass('test-mode')
   Дочекатися І Клікнути  xpath=//*[contains(text(),"${complaintID}")]/../descendant::button[@name="complaint_convert_to_claim"]
   Sleep  5
 
@@ -613,7 +613,7 @@ Login
   tenderonline.Пошук тендера по ідентифікатору  ${username}  ${tender_uaid}
   Дочекатися І Клікнути  xpath=//div[@class="nav_block"]/descendant::a[contains(@href,"tender/award")]
   Дочекатися І Клікнути  xpath=//a[contains(@href,"tender/qualification")]
-  Execute Javascript  $('.navbar-fixed-top').removeClass('navbar-inverse'); $('.test-mode').removeClass('test-mode')
+  Wait Until Keyword Succeeds  10 x  0.5 s  Execute Javascript  $('.navbar-fixed-top').removeClass('navbar-inverse'); $('.test-mode').removeClass('test-mode')
   Capture Page Screenshot
   Дочекатися І Клікнути  xpath=//button[@name="award_claim_resolved"]
   Capture Page Screenshot
@@ -629,7 +629,7 @@ Login
   tenderonline.Пошук тендера по ідентифікатору  ${username}  ${tender_uaid}
   Дочекатися І Клікнути  xpath=//div[@class="nav_block"]/descendant::a[contains(@href,"tender/award")]
   Дочекатися І Клікнути  xpath=//a[contains(@href,"tender/qualification")]
-  Execute Javascript  $('.navbar-fixed-top').removeClass('navbar-inverse'); $('.test-mode').removeClass('test-mode')
+  Wait Until Keyword Succeeds  10 x  0.5 s  Execute Javascript  $('.navbar-fixed-top').removeClass('navbar-inverse'); $('.test-mode').removeClass('test-mode')
   Capture Page Screenshot
   Дочекатися І Клікнути  xpath=//input[@class="cancel_checkbox"]/..
   Ввести Текст  xpath=//*[contains(@name, "[cancellationReason]")]  ${cancellation_data.data.cancellationReason}
@@ -644,7 +644,7 @@ Login
   ...    AND  Дочекатися І Клікнути  xpath=//*[@class="bidclaims"]/descendant::a[contains(@href,"tender/qualification-complaints")]
   ...  ELSE  Дочекатися І Клікнути  xpath=//div[@class="nav_block"]/descendant::a[contains(@href,"tender/complaints")]
   Wait Until Page Does Not Contain  Специфікація закупівлі
-  Execute Javascript  $('.navbar-fixed-top').removeClass('navbar-inverse'); $('.test-mode').removeClass('test-mode')
+  Wait Until Keyword Succeeds  10 x  0.5 s  Execute Javascript  $('.navbar-fixed-top').removeClass('navbar-inverse'); $('.test-mode').removeClass('test-mode')
   Дочекатися І Клікнути  xpath=//*[contains(text(),"${complaintID}")]/../descendant::button[@name="award_claim_convert_to_pending"]
   Sleep  5
 
@@ -839,7 +839,7 @@ Login
   ${lots_status}=  Run Keyword And Return Status  Dictionary Should Contain Key  ${bid.data}  lotValues
   tenderonline.Пошук тендера по ідентифікатору   ${username}  ${tender_uaid}
   Sleep  2
-  Execute Javascript  $('.navbar-fixed-top').removeClass('navbar-inverse'); $('.test-mode').removeClass('test-mode')
+  Wait Until Keyword Succeeds  10 x  0.5 s  Execute Javascript  $('.navbar-fixed-top').removeClass('navbar-inverse'); $('.test-mode').removeClass('test-mode')
   Run Keyword If  ${lots_status}  Ввести пропозицію для лотової зкупівлі  ${bid}
   ...  ELSE  ConvToStr And Input Text  name=Bid[value][amount]  ${bid.data.value.amount}
   Run Keyword If  ${meat} > 0  Вибрати нецінові показники в пропозиції  ${bid}
@@ -872,7 +872,7 @@ Login
 Змінити цінову пропозицію
   [Arguments]  ${username}  ${tender_uaid}  ${fieldname}  ${fieldvalue}
   tenderonline.Пошук тендера по ідентифікатору   ${username}  ${tender_uaid}
-  Execute Javascript  $('.navbar-fixed-top').removeClass('navbar-inverse'); $('.test-mode').removeClass('test-mode')
+  Wait Until Keyword Succeeds  10 x  0.5 s  Execute Javascript  $('.navbar-fixed-top').removeClass('navbar-inverse'); $('.test-mode').removeClass('test-mode')
   ${status}=  Run Keyword And Return Status  Page Should Not Contain  Замовником внесено зміни в умови оголощення.
   Run Keyword If  ${status}  ConvToStr And Input Text  xpath=//input[contains(@name,'[value][amount]')]  ${fieldvalue}
   ...  ELSE  Дочекатися І Клікнути  name=bid_confirm
@@ -882,7 +882,7 @@ Login
 Завантажити документ в ставку
   [Arguments]  ${username}  ${path}  ${tender_uaid}  ${doc_type}=documents
   tenderonline.Пошук тендера по ідентифікатору   ${username}  ${tender_uaid}
-  Execute Javascript  $('.navbar-fixed-top').removeClass('navbar-inverse'); $('.test-mode').removeClass('test-mode')
+  Wait Until Keyword Succeeds  10 x  0.5 s  Execute Javascript  $('.navbar-fixed-top').removeClass('navbar-inverse'); $('.test-mode').removeClass('test-mode')
   Choose File  xpath=(//*[@name="FileUpload[file]"])[last()]  ${path}
   Run Keyword And Ignore Error  Wait Until Element Is Visible  xpath=(//select[contains(@name,"[relatedItem]")])[last()]
   ${doc_type_status}=  Run Keyword And Return Status  Element Should Be Visible  xpath=(//select[contains(@name,"[documentType]")])[last()]
@@ -905,7 +905,7 @@ Login
 Змінити документацію в ставці
   [Arguments]  ${username}  ${tender_uaid}  ${doc_data}  ${doc_id}
   tenderonline.Пошук тендера по ідентифікатору   ${username}  ${tender_uaid}
-  Execute Javascript  $('.navbar-fixed-top').removeClass('navbar-inverse'); $('.test-mode').removeClass('test-mode')
+  Wait Until Keyword Succeeds  10 x  0.5 s  Execute Javascript  $('.navbar-fixed-top').removeClass('navbar-inverse'); $('.test-mode').removeClass('test-mode')
   Дочекатися І Клікнути  xpath=(//*[@class="confidentiality"])[last()]/..
   Input Text  xpath=(//textarea[contains(@name,"confidentialityRationale")])[last()]  ${doc_data.data.confidentialityRationale}
   Дочекатися І Клікнути  xpath=//button[@id="submit_bid"]
@@ -944,7 +944,7 @@ Login
   ${internal_id}=  Get Text  xpath=//div[text()="ID"]/following-sibling::div/span
   ${bid_phone}=  get_bid_phone  ${internal_id}  ${qualification_num}
   Дочекатися І Клікнути  xpath=//div[@class="nav_block"]/descendant::a[contains(@href,"tender/euprequalification")]
-  Execute Javascript  $('.navbar-fixed-top').removeClass('navbar-inverse'); $('.test-mode').removeClass('test-mode')
+  Wait Until Keyword Succeeds  10 x  0.5 s  Execute Javascript  $('.navbar-fixed-top').removeClass('navbar-inverse'); $('.test-mode').removeClass('test-mode')
   Дочекатися І Клікнути  xpath=//*[contains(text(),"${bid_phone}")]/ancestor::tr/following-sibling::tr[1]/descendant::input[contains(@id,"qualified")]/..
   Дочекатися І Клікнути  xpath=//*[contains(text(),"${bid_phone}")]/ancestor::tr/following-sibling::tr[1]/descendant::input[contains(@id,"eligible")]/..
   Choose File  xpath=//*[contains(text(),"${bid_phone}")]/ancestor::tr/following-sibling::tr[1]/descendant::input[@name="FileUpload[file]"]  ${document}
@@ -960,7 +960,7 @@ Login
   ${internal_id}=  Get Text  xpath=//div[text()="ID"]/following-sibling::div/span
   ${bid_phone}=  get_bid_phone  ${internal_id}  ${qualification_num}
   Дочекатися І Клікнути  xpath=//div[@class="nav_block"]/descendant::a[contains(@href,"tender/euprequalification")]
-  Execute Javascript  $('.navbar-fixed-top').removeClass('navbar-inverse'); $('.test-mode').removeClass('test-mode')
+  Wait Until Keyword Succeeds  10 x  0.5 s  Execute Javascript  $('.navbar-fixed-top').removeClass('navbar-inverse'); $('.test-mode').removeClass('test-mode')
   Wait And Select From List By Value  xpath=//*[contains(text(),"${bid_phone}")]/ancestor::tr/following-sibling::tr[1]/descendant::select[@class="choose_prequalification"]  unsuccessful
   Дочекатися І Клікнути  xpath=//*[contains(text(),"${bid_phone}")]/ancestor::tr/following-sibling::tr[1]/descendant::div[@id="qualifications-cause"]/label[1]
   Choose File  xpath=//*[contains(text(),"${bid_phone}")]/ancestor::tr/following-sibling::tr[1]/descendant::input[@name="FileUpload[file]"]  ${document}
@@ -972,14 +972,14 @@ Login
 Скасувати кваліфікацію
   [Arguments]  ${username}  ${tender_uaid}  ${qualification_num}
   tenderonline.Пошук тендера по ідентифікатору   ${username}  ${tender_uaid}
-  Execute Javascript  $('.navbar-fixed-top').removeClass('navbar-inverse'); $('.test-mode').removeClass('test-mode')
+  Wait Until Keyword Succeeds  10 x  0.5 s  Execute Javascript  $('.navbar-fixed-top').removeClass('navbar-inverse'); $('.test-mode').removeClass('test-mode')
   Дочекатися І Клікнути  name=cancel_prequalification
 
 Затвердити остаточне рішення кваліфікації
   [Arguments]  ${username}  ${tender_uaid}
   tenderonline.Пошук тендера по ідентифікатору   ${username}  ${tender_uaid}
   Дочекатися І Клікнути  xpath=//div[@class="nav_block"]/descendant::a[contains(@href,"tender/euprequalification")]
-  Execute Javascript  $('.navbar-fixed-top').removeClass('navbar-inverse'); $('.test-mode').removeClass('test-mode')
+  Wait Until Keyword Succeeds  10 x  0.5 s  Execute Javascript  $('.navbar-fixed-top').removeClass('navbar-inverse'); $('.test-mode').removeClass('test-mode')
   Дочекатися І Клікнути  xpath=//button[@name="prequalification_next_status"]
   Wait Until Page Contains  Оскарження прекваліфікації
 
@@ -988,7 +988,7 @@ Login
   ${document}=  get_upload_file_path
   tenderonline.Пошук тендера по ідентифікатору   ${username}  ${tender_uaid}
   Дочекатися І Клікнути  xpath=//div[@class="nav_block"]/descendant::a[contains(@href,"tender/award")]
-  Execute Javascript  $('.navbar-fixed-top').removeClass('navbar-inverse'); $('.test-mode').removeClass('test-mode')
+  Wait Until Keyword Succeeds  10 x  0.5 s  Execute Javascript  $('.navbar-fixed-top').removeClass('navbar-inverse'); $('.test-mode').removeClass('test-mode')
   Wait Until Keyword Succeeds  5 x  0.5 s  Дочекатися І Клікнути  xpath=//button[text()="Контракт"]
   Capture Page Screenshot
   Wait Until Element Is Visible  xpath=//*[text()="Додати документ"]
@@ -1000,7 +1000,7 @@ Login
   Capture Page Screenshot
   Wait Until Keyword Succeeds  10 x  60 s  Run Keywords
   ...  Reload Page
-  ...  AND  Execute Javascript  $('.navbar-fixed-top').removeClass('navbar-inverse'); $('.test-mode').removeClass('test-mode')
+  ...  AND  Wait Until Keyword Succeeds  10 x  0.5 s  Execute Javascript  $('.navbar-fixed-top').removeClass('navbar-inverse'); $('.test-mode').removeClass('test-mode')
   ...  AND  Дочекатися І Клікнути  xpath=//button[text()="Контракт"]
   ...  AND  Input Text  xpath=//input[contains(@name,"[contractNumber]")]  777
   ...  AND  Input Text  name=ContractPeriod[0][startDate]  01/06/2017 00:00:00
@@ -1010,7 +1010,7 @@ Login
   ...  AND  Confirm Action
   Wait Until Keyword Succeeds  10 x  60 s  Run Keywords
   ...  Reload Page
-  ...  AND  Execute Javascript  $('.navbar-fixed-top').removeClass('navbar-inverse'); $('.test-mode').removeClass('test-mode')
+  ...  AND  Wait Until Keyword Succeeds  10 x  0.5 s  Execute Javascript  $('.navbar-fixed-top').removeClass('navbar-inverse'); $('.test-mode').removeClass('test-mode')
   ...  AND  Дочекатися І Клікнути  xpath=//button[text()="Контракт"]
   ...  AND  Накласти ЄЦП
 
@@ -1084,6 +1084,7 @@ Wait And Select From List By Label
 Накласти ЄЦП
   Capture Page Screenshot
   Wait Until Page Contains  Накласти ЕЦП
+  Wait Until Keyword Succeeds  10 x  0.5 s  Execute Javascript  $('.navbar-fixed-top').removeClass('navbar-inverse'); $('.test-mode').removeClass('test-mode')
   Дочекатися І Клікнути  xpath=//*[contains(text(),"Накласти ЕЦП")]
   Capture Page Screenshot
   Wait Until Element Is Visible  id=CAsServersSelect  60
