@@ -1,7 +1,7 @@
  #!/usr/bin/python
  # -*- coding: utf-8 -*-
 
-from datetime import datetime
+from datetime import datetime, timedelta
 from iso8601 import parse_date
 from pytz import timezone
 import urllib
@@ -11,6 +11,11 @@ import os
 def convert_time(date):
     date = datetime.strptime(date, "%d/%m/%Y %H:%M:%S")
     return timezone('Europe/Kiev').localize(date).strftime('%Y-%m-%dT%H:%M:%S.%f%z')
+
+
+def subtract_min_from_date(date, minutes):
+    date_obj = datetime.strptime(date.split("+")[0], '%Y-%m-%dT%H:%M:%S.%f')
+    return "{}+{}".format(date_obj - timedelta(minutes=minutes), date.split("+")[1])
 
 
 def convert_datetime_to_tenderonline_format(isodate):
@@ -44,6 +49,8 @@ def convert_string_from_dict_tenderonline(string):
         u'Ні': False,
         u'на розглядi': u'pending',
         u'На розгляді': u'pending',
+        u'не вирішено(обробляється)': u'pending',
+        u'відмінено': u'cancelled',
         u'відмінена': u'cancelled',
         u'Переможець': u'active',
     }.get(string, string)
@@ -51,7 +58,6 @@ def convert_string_from_dict_tenderonline(string):
 
 def adapt_procuringEntity(role_name, tender_data):
     if role_name == 'tender_owner':
-        ph = tender_data['data']['procuringEntity']['contactPoint']['telephone'][-10:]
         tender_data['data']['procuringEntity']['name'] = u"Михайленко Михайло Михайлович"
         tender_data['data']['procuringEntity']['address']['postalCode'] = u"01000"
         tender_data['data']['procuringEntity']['address']['region'] = u"Київська область"
@@ -59,8 +65,9 @@ def adapt_procuringEntity(role_name, tender_data):
         tender_data['data']['procuringEntity']['address']['streetAddress'] = u"вул. Неназвана"
         tender_data['data']['procuringEntity']['identifier']['legalName'] = u"Михайленко Михайло Михайлович"
         tender_data['data']['procuringEntity']['identifier']['id'] = u"1234567890"
-       # tender_data = adapt_delivery_data(tender_data)
-       # tender_data['data']['procuringEntity']['contactPoint']['telephone'] = "+38({}){}-{}-{}".format(ph[:3], ph[3:6], ph[6:8], ph[8:10])
+        if tender_data['data'].has_key('procurementMethodType'):
+            if "above" in tender_data['data']['procurementMethodType']:
+                tender_data['data']['tenderPeriod']['startDate'] = subtract_min_from_date(tender_data['data']['tenderPeriod']['startDate'], 1)
     return tender_data
 
 
@@ -124,15 +131,6 @@ def add_second_sign_after_point(amount):
 
 
 def get_bid_phone(internal_id, bid_index):
-    r = urllib.urlopen('https://lb.api-sandbox.openprocurement.org/api/2.3/tenders/{}'.format(internal_id)).read()
-    tender = json.loads(r)
-    bid_id = tender['data']['qualifications'][int(bid_index)]["bidID"]
-    for bid in tender['data']['bids']:
-        if bid['id'] == bid_id:
-            return bid['tenderers'][0]['contactPoint']['telephone']
-
-
-def get_internal_lot_id_by_id(internal_id, bid_index):
     r = urllib.urlopen('https://lb.api-sandbox.openprocurement.org/api/2.3/tenders/{}'.format(internal_id)).read()
     tender = json.loads(r)
     bid_id = tender['data']['qualifications'][int(bid_index)]["bidID"]
